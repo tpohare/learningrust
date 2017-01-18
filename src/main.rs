@@ -5,20 +5,21 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    println!("Guess the number!");
-
     let secret_number = rand::thread_rng().gen_range(1, 101);
     let mut number_of_guesses = 1;
 
-    loop {
-        println!("Please input your guess.");
+    println!("Guess the number!");
 
+    loop {
         let mut guess_string = String::new();
+        let guess: u32;
+
+        println!("Please input your guess.");
 
         io::stdin().read_line(&mut guess_string)
             .expect("failed to read line");
 
-        let guess: u32 = match guess_string.trim().parse() {
+        guess = match guess_string.trim().parse() {
             Ok(num) => num,
             Err(_) => {
                 if "quit" == guess_string.trim() {
@@ -38,7 +39,7 @@ fn main() {
                 break;
             },
         }
-        
+
         number_of_guesses += 1;
     }
 }
